@@ -7,6 +7,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>CarroMaven Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <!-- Capitulo 8 - Spring -->
+  <properties>
+  	<spring.version>4.1.6.RELEASE</spring.version>
+  </properties>
+  
   <dependencies>
     <dependency>
     <!-- Teste -->
@@ -39,12 +45,58 @@
     	<version>2.18</version>
     </dependency>
     
+    <!-- Jersey-Spring -->
+    <dependency>
+    	<groupId>org.glassfish.jersey.ext</groupId>
+    	<artifactId>jersey-spring3</artifactId>
+    	<version>2.18</version>
+   		<exclusions>
+   		<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-core</artifactId>
+   			</exclusion>
+   			<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-context</artifactId>
+   			</exclusion>
+   			<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-web</artifactId>
+   			</exclusion>
+   			<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-aop</artifactId>
+   			</exclusion>
+   			<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-beans</artifactId>
+   			</exclusion>
+   			<exclusion>
+   				<groupId>org.springframework</groupId>
+   				<artifactId>spring-txt</artifactId>
+   			</exclusion>
+   		</exclusions>
+    </dependency>
+    
+    <!-- Spring -->
+    <dependency>
+    	<artifactId>spring-web</artifactId>
+    	<groupId>org.springframework</groupId>
+    	<version>${spring.version}</version>
+    </dependency>
+    <dependency>
+    	<artifactId>spring-orm</artifactId>
+    	<groupId>org.springframework</groupId>
+    	<version>${spring.version}</version>
+    </dependency>
+    
     <!-- Google Gson -->
     <dependency>
     	<groupId>com.google.code.gson</groupId>
     	<artifactId>gson</artifactId>
     	<version>2.3.1</version>
-    </dependency>    
+    </dependency> 
+       
   </dependencies>
   <build>
     <finalName>CarroMaven</finalName>
