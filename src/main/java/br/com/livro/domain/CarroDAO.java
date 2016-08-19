@@ -8,13 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CarroDAO extends BaseDAO {
-	public Carro getCarroById(Long id) throws SQLException
+@SuppressWarnings("unchecked")
+public class CarroDAO extends HibernateDAO<Carro> {
+	
+	
+	public CarroDAO()
 	{
-		Connection conn = null;
+		//Informa o tipo de entidade para o hibernate
+		super(Carro.class);
+	}
+	
+	public Carro getCarroById(Long id)
+	{
+		//Antes do Hibernate
+		/*Connection conn = null;
 		PreparedStatement stmt = null;
 		try{
 			conn = getConnection();
@@ -38,13 +49,17 @@ public class CarroDAO extends BaseDAO {
 				conn.close();
 			}
 		}
-		return null;
+		return null;*/
+		
+		//Depois do hibernate
+		return super.get(id);
 		
 	}
 	
-	public List<Carro> findByName(String name) throws SQLException
+	public List<Carro> findByName(String name)
 	{
-		List<Carro> carros = new ArrayList<Carro>();
+		//Antes do hibernate
+		/*List<Carro> carros = new ArrayList<Carro>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try{
@@ -69,13 +84,19 @@ public class CarroDAO extends BaseDAO {
 				conn.close();
 			}
 		}
-		return carros;
+		return carros;*/
+		
+		//Hibernate
+		Query q = getSession().createQuery("from Carro where lower(name) like lower(?)");
+		q.setString(0, "%" + name + "%");
+		return q.list();
 				
 	}
 	
-	public List<Carro> findByTipo(String tipo) throws SQLException
+	public List<Carro> findByTipo(String tipo)
 	{
-		List<Carro> carros = new ArrayList<Carro>();
+		//Antes do hibernate
+		/*List<Carro> carros = new ArrayList<Carro>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try{
@@ -100,13 +121,18 @@ public class CarroDAO extends BaseDAO {
 				conn.close();
 			}
 		}
+		return carros;*/
+		
+		Query q = getSession().createQuery("from Carro where tipo = ?");
+		q.setString(0, tipo);
+		List<Carro> carros = q.list();
 		return carros;
-				
 	}
 	
-	public List<Carro> getCarros() throws SQLException
+	public List<Carro> getCarros()
 	{
-		List<Carro> carros = new ArrayList<Carro>();
+		//Antes hibernate
+		/*List<Carro> carros = new ArrayList<Carro>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try{
@@ -130,11 +156,17 @@ public class CarroDAO extends BaseDAO {
 				conn.close();
 			}
 		}
-		return carros;
+		return carros;*/
 				
+		//Hibernate
+		Query q = getSession().createQuery("from Carro");
+		List<Carro> carros = q.list();
+		return carros;
 	}
 	
-	public Carro createCarro(ResultSet rs) throws SQLException
+
+	//Antes hibernate
+	/*public Carro createCarro(ResultSet rs) throws SQLException
 	{
 		Carro c = new Carro();
 		c.setId(rs.getLong("id"));
@@ -146,11 +178,12 @@ public class CarroDAO extends BaseDAO {
 		c.setLongitude(rs.getString("longitude"));
 		c.setTipo(rs.getString("tipo"));
 		return c;
-	}
+	}*/
 	
-	public void save(Carro c) throws SQLException
+	public void save(Carro c)
 	{
-		Connection conn = null;
+		//Antes hibernate
+		/*Connection conn = null;
 		PreparedStatement stmt = null;
 		try
 		{
@@ -193,12 +226,15 @@ public class CarroDAO extends BaseDAO {
 			{
 				conn.close();
 			}
-		}
+		}*/
+		
+		//hibernate
+		super.save(c);
 		
 	}
 	
 	//id gerado com o campo auto incremento
-		public static Long getGeneratedId(Statement stmt) throws SQLException
+		/*public static Long getGeneratedId(Statement stmt) throws SQLException
 		{
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next())
@@ -231,5 +267,14 @@ public class CarroDAO extends BaseDAO {
 					conn.close();
 				}
 			}
-		}
+		}*/
+	
+	//Hibernate
+	public boolean delete(long id)
+	{
+		Carro c = get(id);
+		delete(c);
+		return true;
+	}
+	
 }
