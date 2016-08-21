@@ -6,7 +6,10 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 public class ListaCarros implements Serializable {
-	private static final long SerialVersionUIDAdder = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Carro> carros;
 	
 	@XmlElement(name="carro")

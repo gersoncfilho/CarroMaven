@@ -12,9 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 public class Carro implements Serializable {
-
-	@SuppressWarnings("unused")
-	private static final long serialVersionUIL = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name="id", unique=true, nullable=false)

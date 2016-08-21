@@ -8,6 +8,8 @@
   <name>CarroMaven Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
+  
+  
   <!-- Capitulo 8 - Spring -->
   <properties>
   	<spring.version>4.1.6.RELEASE</spring.version>
@@ -114,6 +116,8 @@
     	<artifactId>commons-dbcp</artifactId>
     	<version>1.4</version>
     </dependency>
+    
+    
     
     <!-- Hibernate AspectJ -->
     <dependency>
